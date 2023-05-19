@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :task do
-    name { 'MyString' }
-    description { 'MyText' }
+    name
+    description
     author_id { 1 }
     assignee_id { 1 }
-    state { 'MyString' }
+    state
     expired_at { '2023-05-19' }
   end
 end
