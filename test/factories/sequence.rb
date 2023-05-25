@@ -8,6 +8,6 @@ FactoryBot.define do
   end
 
   sequence :expired_at do |n|
-    "202#{n}-05-19"
+    Date.strptime('2000-12-31', '%Y-%m-%d') + n
   end
 end
