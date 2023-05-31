@@ -1,4 +1,4 @@
 class Web::ApplicationController < ActionController::Base
-  include Concerns::AuthHelper
+  include AuthHelper
   helper_method :current_user
 end
