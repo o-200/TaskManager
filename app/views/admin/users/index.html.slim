@@ -29,8 +29,8 @@ h3 Users list
           td= user.type
           td
             => link_to "Edit", edit_admin_user_path(user)
-            -if current_user.id != user.id
-              =< link_to "Delete", admin_user_path(user), method: "delete"
+            - if current_user.id != user.id
+              = button_to "Delete", admin_user_path(user), method: 'delete'
 
 .mdl-grid
   .mdl-cell.mdl-cell--10-col
