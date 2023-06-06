@@ -7,7 +7,7 @@ FactoryBot.define do
     "person#{n}@example.com"
   end
 
-  sequence :expired_at do |n|
-    Time.now + n.day
+  sequence :expired_at do
+    nil
   end
 end
