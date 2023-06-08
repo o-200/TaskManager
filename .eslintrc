@@ -17,16 +17,22 @@
   },
 
   "settings": {
-    "import/extensions": [".js", ".jsx"],
+    "import/extensions": [".js", ".jsx"]
   },
 
   "rules": {
-    "prettier/prettier": [ 2 , {
-      "singleQuote": true,
-      "trailingComma": "all",
-      "printWidth": 128
-    }],
-    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }],
+    "prettier/prettier": [
+      2,
+      {
+        "singleQuote": true,
+        "trailingComma": "all",
+        "printWidth": 128
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      { "props": true, "ignorePropertyModificationsFor": ["state"] }
+    ],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "import/no-unresolved": ["off"],
     "import/no-absolute-path": ["off"],
@@ -40,9 +46,22 @@
     "import/extensions": ["off"],
     "react/no-array-index-key": ["off"],
     "filenames/match-exported": 2,
-    "react/prop-types": [2, { "ignore": ["classes", "match", "dictionaries", "errors", "history", "children", "location"] }],
+    "react/prop-types": [
+      2,
+      {
+        "ignore": [
+          "classes",
+          "match",
+          "dictionaries",
+          "errors",
+          "history",
+          "children",
+          "location"
+        ]
+      }
+    ],
     "no-debugger": 1,
     "react/destructuring-assignment": 0,
     "react/static-property-placement": 0
-    }
   }
+}
