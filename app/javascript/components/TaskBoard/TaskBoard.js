@@ -30,7 +30,7 @@ const data = {
 };
 
 const TaskBoard = () => {
-  return <Board initialBoard={data} />;
+  return <Board disableColumnDrag initialBoard={data} />;
 };
 
 export default TaskBoard;
