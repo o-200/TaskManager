@@ -16,7 +16,7 @@ COPY Gemfile Gemfile.lock  ./
 RUN bundle install --jobs 5
 
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --ignore-engines
+RUN yarn install --frozen-lockfile
 
 ADD . $RAILS_ROOT
 ENV PATH=$RAILS_ROOT/bin:${PATH}
