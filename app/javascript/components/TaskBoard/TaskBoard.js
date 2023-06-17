@@ -49,6 +49,21 @@ const TaskBoard = () => {
     });
   };
 
+  const handleCardDragEnd = (task, source, destination) => {
+    const transition = task.transitions.find(({ to }) => destination.toColumnId === to);
+    if (!transition) {
+      return null;
+    }
+
+    return TasksRepository.update(task.id, { stateEvent: transition.event })
+      .then(() => {
+        loadColumnInitial(destination.toColumnId);
+        loadColumnInitial(source.fromColumnId);
+      })
+      .catch((error) => {
+        alert(`Move failed! ${error.message}`);
+      });
+  };
 
   const loadColumnInitial = (state, page = 1, perPage = 10) => {
     loadColumn(state, page, perPage).then(({ data }) => {
@@ -83,6 +98,7 @@ const TaskBoard = () => {
   return <KanbanBoard
             renderCard={card => <Task task={card} />}
             renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
+            onCardDragEnd={handleCardDragEnd}
           >
             {board}
           </KanbanBoard>;
