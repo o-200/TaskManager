@@ -19,6 +19,9 @@ gem 'kaminari'
 gem 'ransack'
 gem 'responders'
 gem 'active_model_serializers'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "webpacker-react", "~> 0.3.2"
+gem 'js-routes'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -37,7 +40,3 @@ group :test do
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   gem 'webdrivers'
 end
-
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "webpacker-react", "~> 0.3.2"
