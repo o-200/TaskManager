@@ -45,9 +45,7 @@ axios.interceptors.response.use(null, error => {
 export default {
   get(url, params = {}) {
     return axios.get(url, { params: decamelize(params),
-        paramsSerializer: parameters => qs.stringify(parameters, { encode: false }),
-      })
-      .then(camelize);
+        paramsSerializer: parameters => qs.stringify(parameters, { encode: false }), }).then(camelize);
   },
 
   post(url, json) {
