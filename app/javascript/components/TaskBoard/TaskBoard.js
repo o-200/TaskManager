@@ -110,7 +110,7 @@ function TaskBoard() {
 
   const handleClose = () => {
     setMode(MODES.NONE);
-    changeOpenedTask(null);
+    setOpenedTaskId(null);
   };
 
   const handleTaskCreate = (params) => {
@@ -121,9 +121,7 @@ function TaskBoard() {
     });
   };
 
-  const loadTask = (id) => {
-    return TasksRepository.show(id).then(({ data: { task } }) => task);
-  };
+  const loadTask = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
 
   const handleTaskUpdate = (task) => {
     const attributes = TaskForm.attributesToSubmit(task);
@@ -141,7 +139,7 @@ function TaskBoard() {
     });
   };
 
-  const handleOpenEditPopup = task => {
+  const handleOpenEditPopup = (task) => {
     setOpenedTaskId(task.id);
     setMode(MODES.EDIT);
   };
