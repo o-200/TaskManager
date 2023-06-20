@@ -129,6 +129,7 @@ function TaskBoard() {
     return TasksRepository.update(task.id, attributes).then(() => {
       loadColumnInitial(task.state);
       setOpenedTaskId(null);
+      handleClose();
     });
   };
 
