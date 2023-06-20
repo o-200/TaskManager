@@ -137,6 +137,7 @@ function TaskBoard() {
     TasksRepository.destroy(task.id).then(() => {
       loadColumnInitial(task.state);
       setOpenedTaskId(null);
+      handleClose();
     });
   };
 
