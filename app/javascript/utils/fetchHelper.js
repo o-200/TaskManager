@@ -1,14 +1,7 @@
 import axios from 'axios';
-import qs, { parse, stringify } from 'qs';
+import qs from 'qs';
 
 import { camelize, decamelize } from './keysConverter';
-
-const axiosInstance = axios.create({
-  paramsSerializer: {
-    encode: parse,
-    serialize: stringify,
-  },
-});
 
 function authenticityToken() {
   const token = document.querySelector('meta[name="csrf-token"]');
