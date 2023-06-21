@@ -12,7 +12,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Card from '@material-ui/core/Card';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import Form from './EditForm';
+import Form from './components/EditForm';
 import useStyles from './useStyles';
 
 function EditPopup({ cardId, onClose, onCardDestroy, onLoadCard, onCardUpdate }) {
