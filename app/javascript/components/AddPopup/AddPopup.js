@@ -12,7 +12,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 
-import TaskForm from '../../forms/TaskForm';
+import TaskPresenter from 'presenters/TaskPresenter';
+import TaskForm from 'forms/TaskForm';
 
 import useStyles from './useStyles';
 
@@ -52,7 +53,7 @@ function AddPopup({ onClose, onCreateCard }) {
               error={has('name', errors)}
               helperText={errors.name}
               onChange={handleChangeTextField('name')}
-              value={task.name}
+              value={TaskPresenter.taskName(task)}
               label="Name"
               required
               margin="dense"
@@ -61,7 +62,7 @@ function AddPopup({ onClose, onCreateCard }) {
               error={has('description', errors)}
               helperText={errors.description}
               onChange={handleChangeTextField('description')}
-              value={task.description}
+              value={TaskPresenter.taskDescription(task)}
               label="Description"
               required
               margin="dense"

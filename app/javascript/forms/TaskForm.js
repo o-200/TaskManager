@@ -1,5 +1,7 @@
 import { pick, propOr } from 'ramda';
 
+import TaskPresenter from 'presenters/TaskPresenter';
+
 export default {
   defaultAttributes(attributes) {
     return {
@@ -14,8 +16,8 @@ export default {
 
     return {
       ...pick(pertmittedKeys, task),
-      assigneeId: propOr(null, 'id', task.assignee),
-      authorId: propOr(null, 'id', task.author),
+      assigneeId: propOr(null, 'id', TaskPresenter.taskAssignee(task)),
+      authorId: propOr(null, 'id', TaskPresenter.taskAuthor(task)),
     };
   },
 };
