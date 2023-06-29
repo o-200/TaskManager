@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import PropTypesPresenter from 'utils/PropTypesPresenter';
+import UserPresenter from './UserPresenter';
 
 export default new PropTypesPresenter(
   {
     id: PropTypes.number,
     name: PropTypes.string,
     description: PropTypes.text,
-    author: PropTypes.object,
-    assignee: PropTypes.object,
+    author: UserPresenter.shape(),
+    assignee: UserPresenter.shape(),
     state: PropTypes.string,
   },
   {
@@ -29,6 +30,10 @@ export default new PropTypesPresenter(
 
     taskState(task) {
       return `${this.state(task)}`;
+    },
+
+    taskTransitions(task) {
+      return task.transitions;
     },
   },
 );

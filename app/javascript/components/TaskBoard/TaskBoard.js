@@ -90,7 +90,7 @@ function TaskBoard() {
   };
 
   const handleCardDragEnd = (task, source, destination) => {
-    const transition = task.transitions.find(({ to }) => destination.toColumnId === to);
+    const transition = TaskPresenter.taskTransitions(task).find(({ to }) => destination.toColumnId === to);
     if (!transition) {
       return null;
     }
