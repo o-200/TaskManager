@@ -10,6 +10,7 @@ export default new PropTypesPresenter(
     author: UserPresenter.shape(),
     assignee: UserPresenter.shape(),
     state: PropTypes.string,
+    transitions: PropTypes.array,
   },
   {
     taskName(task) {
@@ -33,7 +34,7 @@ export default new PropTypesPresenter(
     },
 
     taskTransitions(task) {
-      return task.transitions;
+      return this.transitions(task);
     },
   },
 );
