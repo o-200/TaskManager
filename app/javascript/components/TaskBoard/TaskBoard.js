@@ -7,6 +7,7 @@ import { propOr } from 'ramda';
 
 import Task from 'components/Task';
 import TasksRepository from 'repositories/TasksRepository';
+import TaskPresenter from 'presenters/TaskPresenter';
 import ColumnHeader from 'components/ColumnHeader';
 import AddPopup from 'components/AddPopup';
 import EditPopup from 'components/EditPopup';
@@ -89,7 +90,7 @@ function TaskBoard() {
   };
 
   const handleCardDragEnd = (task, source, destination) => {
-    const transition = task.transitions.find(({ to }) => destination.toColumnId === to);
+    const transition = TaskPresenter.taskTransitions(task).find(({ to }) => destination.toColumnId === to);
     if (!transition) {
       return null;
     }
@@ -116,7 +117,7 @@ function TaskBoard() {
   const handleTaskCreate = (params) => {
     const attributes = TaskForm.attributesToSubmit(params);
     return TasksRepository.create(attributes).then(({ data: { task } }) => {
-      loadColumnInitial(task.state);
+      loadColumnInitial(TaskPresenter.taskState(task));
       handleClose();
     });
   };
@@ -127,14 +128,14 @@ function TaskBoard() {
     const attributes = TaskForm.attributesToSubmit(task);
 
     return TasksRepository.update(task.id, attributes).then(() => {
-      loadColumnInitial(task.state);
+      loadColumnInitial(TaskPresenter.taskState(task));
       handleClose();
     });
   };
 
   const handleTaskDestroy = (task) => {
     TasksRepository.destroy(task.id).then(() => {
-      loadColumnInitial(task.state);
+      loadColumnInitial(TaskPresenter.taskState(task));
       setOpenedTaskId(null);
       handleClose();
     });
