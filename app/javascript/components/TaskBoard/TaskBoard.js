@@ -4,11 +4,13 @@ import '@asseinfo/react-kanban/dist/styles.css';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import Task from 'components/Task';
 import AddPopup from 'components/AddPopup';
-import EditPopup from 'components/EditPopup';
 import ColumnHeader from 'components/ColumnHeader';
-
+import EditPopup from 'components/EditPopup';
+import Task from 'components/Task';
+import TaskForm from 'forms/TaskForm';
+import TaskPresenter from 'presenters/TaskPresenter';
+import TasksRepository from 'repositories/TasksRepository';
 import useTasks from 'hooks/store/useTasks';
 
 import useStyles from './useStyles';
@@ -19,7 +21,7 @@ const MODES = {
 };
 
 function TaskBoard() {
-  const { board, loadBoard, loadColumnMore } = useTasks();
+  const { board, loadBoard, loadColumn, loadColumnMore } = useTasks();
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
   const styles = useStyles();
@@ -40,8 +42,15 @@ function TaskBoard() {
     setOpenedTaskId(null);
   };
 
+  const handleTaskCreate = (params) => {
+    const attributes = TaskForm.attributesToSubmit(params);
+    return TasksRepository.create(attributes).then(({ data: { task } }) => {
+      loadColumn(TaskPresenter.taskState(task));
+      handleClose();
+    });
+  };
+
   const handleCardDragEnd = () => {};
-  const handleTaskCreate = () => {};
   const handleTaskLoad = () => {};
   const handleTaskUpdate = () => {};
   const handleTaskDestroy = () => {};

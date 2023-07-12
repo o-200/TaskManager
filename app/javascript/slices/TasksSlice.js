@@ -24,6 +24,18 @@ const tasksSlice = createSlice({
       const column = state.board.columns.find(propEq('id', columnId));
 
       state.board = changeColumn(state.board, column, {
+        cards: items,
+        meta,
+      });
+
+      return state;
+    },
+
+    loadColumnMoreSuccess(state, { payload }) {
+      const { items, meta, columnId } = payload;
+      const column = state.board.columns.find(propEq('id', columnId));
+
+      state.board = changeColumn(state.board, column, {
         cards: [...column.cards, ...items],
         meta,
       });
@@ -33,6 +45,6 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { loadColumnSuccess } = tasksSlice.actions;
+export const { loadColumnSuccess, loadColumnMoreSuccess } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
