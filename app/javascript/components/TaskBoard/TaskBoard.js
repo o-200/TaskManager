@@ -19,12 +19,12 @@ const MODES = {
 };
 
 function TaskBoard() {
-  const { board, loadBoard } = useTasks();
+  const { board, loadBoard, loadColumnMore } = useTasks();
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
   const styles = useStyles();
 
-  // useEffect(() => loadBoard(), []);
+  useEffect(() => loadBoard(), []);
 
   const handleOpenAddPopup = () => {
     setMode(MODES.ADD);
@@ -40,7 +40,6 @@ function TaskBoard() {
     setOpenedTaskId(null);
   };
 
-  const loadColumnMore = () => {};
   const handleCardDragEnd = () => {};
   const handleTaskCreate = () => {};
   const handleTaskLoad = () => {};
