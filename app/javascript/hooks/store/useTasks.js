@@ -9,7 +9,7 @@ const useTasks = () => {
 
   const loadColumnInitial = (state, page, perPage) =>
     TasksRepository.index({
-      q: { stateEq: state },
+      q: { stateEq: state, s: 'id DESC' },
       page,
       perPage,
     });
