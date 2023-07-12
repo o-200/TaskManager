@@ -1,5 +1,4 @@
 import axios from 'axios';
-import qs from 'qs';
 
 import { camelize, decamelize } from './keysConverter';
 
@@ -37,9 +36,7 @@ axios.interceptors.response.use(null, (error) => {
 
 export default {
   get(url, params = {}) {
-    return axios
-      .get(url, { params: decamelize(params), paramsSerializer: (parameters) => qs.stringify(parameters, { encode: false }) })
-      .then(camelize);
+    return axios.get(url, { params: decamelize(params) }).then(camelize);
   },
 
   post(url, json) {
