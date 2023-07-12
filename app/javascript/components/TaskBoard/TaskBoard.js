@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import KanbanBoard from '@asseinfo/react-kanban';
 import '@asseinfo/react-kanban/dist/styles.css';
-import Fab from '@material-ui/core/Fab';
+
 import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 
 import AddPopup from 'components/AddPopup';
 import ColumnHeader from 'components/ColumnHeader';
@@ -18,6 +19,7 @@ import useStyles from './useStyles';
 const MODES = {
   ADD: 'add',
   NONE: 'none',
+  EDIT: 'edit',
 };
 
 function TaskBoard() {
@@ -50,10 +52,39 @@ function TaskBoard() {
     });
   };
 
-  const handleCardDragEnd = () => {};
-  const handleTaskLoad = () => {};
-  const handleTaskUpdate = () => {};
-  const handleTaskDestroy = () => {};
+  const handleCardDragEnd = (task, source, destination) => {
+    const transition = TaskPresenter.taskTransitions(task).find(({ to }) => destination.toColumnId === to);
+    if (!transition) {
+      return null;
+    }
+
+    return TasksRepository.update(task.id, { stateEvent: transition.event })
+      .then(() => {
+        loadColumn(destination.toColumnId);
+        loadColumn(source.fromColumnId);
+      })
+      .catch((error) => {
+        alert(`Move failed! ${error.message}`); // eslint-disable-line no-alert
+      });
+  };
+
+  const handleTaskLoad = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
+
+  const handleTaskUpdate = (task) => {
+    const attributes = TaskForm.attributesToSubmit(task);
+
+    return TasksRepository.update(task.id, attributes).then(() => {
+      loadColumn(TaskPresenter.taskState(task));
+      handleClose();
+    });
+  };
+
+  const handleTaskDestroy = (task) => {
+    TasksRepository.destroy(task.id).then(() => {
+      loadColumn(TaskPresenter.taskState(task));
+      handleClose();
+    });
+  };
 
   return (
     <>
