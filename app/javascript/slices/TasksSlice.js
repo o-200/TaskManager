@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { propEq } from 'ramda';
 import { changeColumn } from '@asseinfo/react-kanban';
+import { useDispatch } from 'react-redux'
 
-import { states } from 'presenters/TaskPresenter';
+import TaskPresenter, { states } from 'presenters/TaskPresenter';
+import TasksRepository from 'repositories/TasksRepository';
 
 const initialState = {
   board: {
@@ -42,9 +44,46 @@ const tasksSlice = createSlice({
 
       return state;
     },
+
+    presentTaskState(task) {
+      return TaskPresenter.taskState(task);
+    },
+
+    deleteTask(id) {
+      return TasksRepository.destroy(id);
+    },
   },
 });
 
-export const { loadColumnSuccess, loadColumnMoreSuccess } = tasksSlice.actions;
+export const { loadColumnSuccess, loadColumnMoreSuccess, deleteTask } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
+
+export const useTasksActions = () => {
+  const dispatch = useDispatch();
+
+  const loadColumnInitial = (state, page, perPage) =>
+    TasksRepository.index({
+      q: { stateEq: state, s: 'id DESC' },
+      page,
+      perPage,
+    });
+
+  const loadColumn = (state, page = 1, perPage = 10) => {
+    loadColumnInitial(state, page, perPage).then(({ data }) => {
+      dispatch(loadColumnSuccess({ ...data, columnId: state }));
+    });
+  };
+
+  const loadColumnMore = (state, page = 1, perPage = 10) => {
+    loadColumnInitial(state, page, perPage).then(({ data }) => {
+      dispatch(loadColumnMoreSuccess({ ...data, columnId: state }));
+    });
+  };
+
+  return {
+    loadColumnInitial,
+    loadColumn,
+    loadColumnMore,
+  };
+};

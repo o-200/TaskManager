@@ -23,7 +23,7 @@ const MODES = {
 };
 
 function TaskBoard() {
-  const { board, loadBoard, loadColumn, loadColumnMore } = useTasks();
+  const { board, loadBoard, loadColumn, loadColumnMore, destroyTask } = useTasks();
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
   const styles = useStyles();
@@ -80,10 +80,7 @@ function TaskBoard() {
   };
 
   const handleTaskDestroy = (task) => {
-    TasksRepository.destroy(task.id).then(() => {
-      loadColumn(TaskPresenter.taskState(task));
-      handleClose();
-    });
+    destroyTask(task, handleClose);
   };
 
   return (
