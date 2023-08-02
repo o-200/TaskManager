@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { propEq } from 'ramda';
 import { changeColumn } from '@asseinfo/react-kanban';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 
 import TaskPresenter, { states } from 'presenters/TaskPresenter';
 import TasksRepository from 'repositories/TasksRepository';
@@ -81,9 +81,12 @@ export const useTasksActions = () => {
     });
   };
 
+  const removeTask = (id) => TasksRepository.destroy(id);
+
   return {
     loadColumnInitial,
     loadColumn,
     loadColumnMore,
+    removeTask,
   };
 };
