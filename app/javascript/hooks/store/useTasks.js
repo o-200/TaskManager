@@ -4,10 +4,19 @@ import TaskPresenter, { states } from 'presenters/TaskPresenter';
 import TaskForm from 'forms/TaskForm';
 
 const useTasks = () => {
-  const { loadColumn, loadColumnMore, removeTask, changeTask } = useTasksActions();
+  const { loadColumn, loadColumnMore, newTask, removeTask, changeTask } = useTasksActions();
 
   const board = useSelector((state) => state.tasks.board);
   const loadBoard = () => states.map(({ key }) => loadColumn(key));
+
+  const createTask = (params, handleClose) => {
+    const attributes = TaskForm.attributesToSubmit(params);
+
+    return newTask(attributes).then(({ data: { task } }) => {
+      loadColumn(TaskPresenter.taskState(task));
+      handleClose();
+    });
+  };
 
   const destroyTask = (task, handleClose) => {
     removeTask(task.id).then(() => {
@@ -30,6 +39,7 @@ const useTasks = () => {
     loadBoard,
     loadColumn,
     loadColumnMore,
+    createTask,
     destroyTask,
     updateTask,
   };

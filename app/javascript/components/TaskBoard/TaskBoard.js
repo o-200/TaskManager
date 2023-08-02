@@ -9,7 +9,6 @@ import AddPopup from 'components/AddPopup';
 import ColumnHeader from 'components/ColumnHeader';
 import EditPopup from 'components/EditPopup';
 import Task from 'components/Task';
-import TaskForm from 'forms/TaskForm';
 import TaskPresenter from 'presenters/TaskPresenter';
 import TasksRepository from 'repositories/TasksRepository';
 import useTasks from 'hooks/store/useTasks';
@@ -23,7 +22,7 @@ const MODES = {
 };
 
 function TaskBoard() {
-  const { board, loadBoard, loadColumn, loadColumnMore, destroyTask, updateTask } = useTasks();
+  const { board, loadBoard, loadColumn, loadColumnMore, createTask, destroyTask, updateTask } = useTasks();
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
   const styles = useStyles();
@@ -45,11 +44,7 @@ function TaskBoard() {
   };
 
   const handleTaskCreate = (params) => {
-    const attributes = TaskForm.attributesToSubmit(params);
-    return TasksRepository.create(attributes).then(({ data: { task } }) => {
-      loadColumn(TaskPresenter.taskState(task));
-      handleClose();
-    });
+    createTask(params, handleClose);
   };
 
   const handleCardDragEnd = (task, source, destination) => {

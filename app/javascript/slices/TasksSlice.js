@@ -81,6 +81,8 @@ export const useTasksActions = () => {
     });
   };
 
+  const newTask = (attributes) => TasksRepository.create(attributes);
+
   const removeTask = (id) => TasksRepository.destroy(id);
 
   const changeTask = (id, attributes) => TasksRepository.update(id, attributes);
@@ -91,5 +93,6 @@ export const useTasksActions = () => {
     loadColumnMore,
     removeTask,
     changeTask,
+    newTask,
   };
 };
