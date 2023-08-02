@@ -81,6 +81,8 @@ export const useTasksActions = () => {
 
   const resiteCard = (id, stateEvent) => TasksRepository.update(id, stateEvent);
 
+  const handleCardLoad = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
+
   return {
     loadColumnInitial,
     loadColumn,
@@ -89,5 +91,6 @@ export const useTasksActions = () => {
     changeTask,
     newTask,
     resiteCard,
+    handleCardLoad,
   };
 };
