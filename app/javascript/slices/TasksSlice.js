@@ -3,7 +3,7 @@ import { propEq } from 'ramda';
 import { changeColumn } from '@asseinfo/react-kanban';
 import { useDispatch } from 'react-redux';
 
-import TaskPresenter, { states } from 'presenters/TaskPresenter';
+import { states } from 'presenters/TaskPresenter';
 import TasksRepository from 'repositories/TasksRepository';
 
 const initialState = {
@@ -79,6 +79,8 @@ export const useTasksActions = () => {
 
   const changeTask = (id, attributes) => TasksRepository.update(id, attributes);
 
+  const resiteCard = (id, stateEvent) => TasksRepository.update(id, stateEvent);
+
   return {
     loadColumnInitial,
     loadColumn,
@@ -86,5 +88,6 @@ export const useTasksActions = () => {
     removeTask,
     changeTask,
     newTask,
+    resiteCard,
   };
 };

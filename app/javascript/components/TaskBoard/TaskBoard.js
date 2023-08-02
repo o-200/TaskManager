@@ -9,7 +9,6 @@ import AddPopup from 'components/AddPopup';
 import ColumnHeader from 'components/ColumnHeader';
 import EditPopup from 'components/EditPopup';
 import Task from 'components/Task';
-import TaskPresenter from 'presenters/TaskPresenter';
 import TasksRepository from 'repositories/TasksRepository';
 import useTasks from 'hooks/store/useTasks';
 
@@ -22,7 +21,7 @@ const MODES = {
 };
 
 function TaskBoard() {
-  const { board, loadBoard, loadColumn, loadColumnMore, createTask, destroyTask, updateTask } = useTasks();
+  const { board, loadBoard, loadColumnMore, createTask, destroyTask, updateTask, moveCard } = useTasks();
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
   const styles = useStyles();
@@ -43,21 +42,7 @@ function TaskBoard() {
     setOpenedTaskId(null);
   };
 
-  const handleCardDragEnd = (task, source, destination) => {
-    const transition = TaskPresenter.taskTransitions(task).find(({ to }) => destination.toColumnId === to);
-    if (!transition) {
-      return null;
-    }
-
-    return TasksRepository.update(task.id, { stateEvent: transition.event })
-      .then(() => {
-        loadColumn(destination.toColumnId);
-        loadColumn(source.fromColumnId);
-      })
-      .catch((error) => {
-        alert(`Move failed! ${error.message}`); // eslint-disable-line no-alert
-      });
-  };
+  const handleCardDragEnd = (task, source, destination) => moveCard(task, source, destination);
 
   const handleTaskLoad = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
 

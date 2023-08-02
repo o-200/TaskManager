@@ -4,7 +4,7 @@ import TaskPresenter, { states } from 'presenters/TaskPresenter';
 import TaskForm from 'forms/TaskForm';
 
 const useTasks = () => {
-  const { loadColumn, loadColumnMore, newTask, removeTask, changeTask } = useTasksActions();
+  const { loadColumn, loadColumnMore, newTask, removeTask, changeTask, resiteCard } = useTasksActions();
 
   const board = useSelector((state) => state.tasks.board);
   const loadBoard = () => states.map(({ key }) => loadColumn(key));
@@ -34,6 +34,22 @@ const useTasks = () => {
     });
   };
 
+  const moveCard = (task, source, destination) => {
+    const transition = TaskPresenter.taskTransitions(task).find(({ to }) => destination.toColumnId === to);
+    if (!transition) {
+      return null;
+    }
+
+    return resiteCard(task.id, { stateEvent: transition.event })
+      .then(() => {
+        loadColumn(destination.toColumnId);
+        loadColumn(source.fromColumnId);
+      })
+      .catch((error) => {
+        alert(`Move failed! ${error.message}`); // eslint-disable-line no-alert
+      });
+  };
+
   return {
     board,
     loadBoard,
@@ -42,6 +58,7 @@ const useTasks = () => {
     createTask,
     destroyTask,
     updateTask,
+    moveCard,
   };
 };
 
