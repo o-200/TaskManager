@@ -44,14 +44,6 @@ const tasksSlice = createSlice({
 
       return state;
     },
-
-    presentTaskState(task) {
-      return TaskPresenter.taskState(task);
-    },
-
-    deleteTask(id) {
-      return TasksRepository.destroy(id);
-    },
   },
 });
 

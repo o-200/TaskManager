@@ -43,10 +43,6 @@ function TaskBoard() {
     setOpenedTaskId(null);
   };
 
-  const handleTaskCreate = (params) => {
-    createTask(params, handleClose);
-  };
-
   const handleCardDragEnd = (task, source, destination) => {
     const transition = TaskPresenter.taskTransitions(task).find(({ to }) => destination.toColumnId === to);
     if (!transition) {
@@ -65,13 +61,11 @@ function TaskBoard() {
 
   const handleTaskLoad = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
 
-  const handleTaskUpdate = (task) => {
-    updateTask(task, handleClose);
-  };
+  const handleTaskCreate = (params) => createTask(params, handleClose);
 
-  const handleTaskDestroy = (task) => {
-    destroyTask(task, handleClose);
-  };
+  const handleTaskUpdate = (task) => updateTask(task, handleClose);
+
+  const handleTaskDestroy = (task) => destroyTask(task, handleClose);
 
   return (
     <>
