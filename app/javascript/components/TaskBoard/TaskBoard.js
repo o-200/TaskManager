@@ -23,7 +23,7 @@ const MODES = {
 };
 
 function TaskBoard() {
-  const { board, loadBoard, loadColumn, loadColumnMore, destroyTask } = useTasks();
+  const { board, loadBoard, loadColumn, loadColumnMore, destroyTask, updateTask } = useTasks();
   const [mode, setMode] = useState(MODES.NONE);
   const [openedTaskId, setOpenedTaskId] = useState(null);
   const styles = useStyles();
@@ -71,12 +71,7 @@ function TaskBoard() {
   const handleTaskLoad = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
 
   const handleTaskUpdate = (task) => {
-    const attributes = TaskForm.attributesToSubmit(task);
-
-    return TasksRepository.update(task.id, attributes).then(() => {
-      loadColumn(TaskPresenter.taskState(task));
-      handleClose();
-    });
+    updateTask(task, handleClose);
   };
 
   const handleTaskDestroy = (task) => {

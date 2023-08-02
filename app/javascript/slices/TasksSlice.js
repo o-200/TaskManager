@@ -83,10 +83,13 @@ export const useTasksActions = () => {
 
   const removeTask = (id) => TasksRepository.destroy(id);
 
+  const changeTask = (id, attributes) => TasksRepository.update(id, attributes);
+
   return {
     loadColumnInitial,
     loadColumn,
     loadColumnMore,
     removeTask,
+    changeTask,
   };
 };
