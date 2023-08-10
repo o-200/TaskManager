@@ -22,6 +22,7 @@ gem 'active_model_serializers'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "webpacker-react", "~> 0.3.2"
 gem 'js-routes'
+gem 'coveralls_reborn'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
