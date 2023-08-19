@@ -5,6 +5,8 @@ services:
     image: postgres:10.3-alpine
   ci:
     build: .
+    volumes:
+      - .:/task_manager
     depends_on:
       - db
     environment:
