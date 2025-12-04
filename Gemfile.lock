@@ -114,6 +114,7 @@ GEM
     crass (1.0.6)
     date (3.5.0)
     docile (1.4.1)
+    dotenv (3.2.0)
     drb (2.2.3)
     erb (6.0.0)
     erubi (1.13.1)
@@ -415,6 +416,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   coveralls_reborn
+  dotenv (~> 3.2)
   factory_bot_rails
   jbuilder (~> 2.7)
   js-routes
@@ -441,7 +443,7 @@ DEPENDENCIES
   webpacker-react (~> 0.3.2)
 
 RUBY VERSION
-   ruby 3.3.4p94
+  ruby 3.3.4p94
 
 BUNDLED WITH
-   2.7.2
+  4.0.0

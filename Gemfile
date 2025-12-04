@@ -43,3 +43,5 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-lcov'
 end
+
+gem "dotenv", "~> 3.2"
