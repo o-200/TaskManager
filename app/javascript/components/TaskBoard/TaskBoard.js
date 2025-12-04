@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import KanbanBoard from '@asseinfo/react-kanban';
-import '@asseinfo/react-kanban/dist/styles.css';
-
+import { Board } from '@caldwell619/react-kanban';
+import '@caldwell619/react-kanban/dist/styles.css';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
-
 import AddPopup from 'components/AddPopup';
 import ColumnHeader from 'components/ColumnHeader';
 import EditPopup from 'components/EditPopup';
 import Task from 'components/Task';
 import useTasks from 'hooks/store/useTasks';
-
 import useStyles from './useStyles';
 
 const MODES = {
@@ -25,7 +22,13 @@ function TaskBoard() {
   const [openedTaskId, setOpenedTaskId] = useState(null);
   const styles = useStyles();
 
-  useEffect(() => loadBoard(), []);
+  useEffect(() => {
+    const fetchBoard = async () => {
+      await loadBoard();
+    };
+
+    fetchBoard();
+  }, []);
 
   const handleOpenAddPopup = () => {
     setMode(MODES.ADD);
@@ -40,7 +43,6 @@ function TaskBoard() {
     setMode(MODES.NONE);
     setOpenedTaskId(null);
   };
-
   const handleCardDragEnd = (task, source, destination) => moveCard(task, source, destination);
 
   const handleTaskLoad = (id) => loadTask(id);
@@ -57,14 +59,15 @@ function TaskBoard() {
         <AddIcon />
       </Fab>
 
-      <KanbanBoard
+      <Board
         disableColumnDrag
+        allowAddCard={false}
         onCardDragEnd={handleCardDragEnd}
         renderCard={(card) => <Task onClick={handleOpenEditPopup} task={card} />}
         renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
       >
         {board}
-      </KanbanBoard>
+      </Board>
 
       {mode === MODES.ADD && <AddPopup onCreateCard={handleTaskCreate} onClose={handleClose} />}
       {mode === MODES.EDIT && (

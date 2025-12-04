@@ -1,5 +1,11 @@
-const { environment } = require('@rails/webpacker')
+const { environment } = require('@rails/webpacker');
 
-environment.loaders.delete('nodeModules');
+const babelLoader = environment.loaders.get('babel');
 
-module.exports = environment
+babelLoader.use[0].options = {
+  ...babelLoader.use[0].options,
+  presets: ['@babel/preset-env'],
+  plugins: ['@babel/plugin-proposal-optional-chaining'],
+};
+
+module.exports = environment;

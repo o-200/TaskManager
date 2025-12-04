@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { propEq } from 'ramda';
-import { changeColumn } from '@asseinfo/react-kanban';
+
+import { changeColumn } from '@caldwell619/react-kanban';
+
 import { useDispatch } from 'react-redux';
 
 import { states } from 'presenters/TaskPresenter';
